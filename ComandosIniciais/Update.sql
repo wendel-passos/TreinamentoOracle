@@ -9,6 +9,10 @@ UPDATE tb_vendedores SET percentual_comissao = 0.10 WHERE matricula = '00233';
 --Alteração de vendedor com o nome divergente
 UPDATE tb_vendedores SET nome = 'Jose Geraldo da Fonseca Junior' WHERE matricula = '00233';
 
+--Alteração de registros na tabela de clientes 
+update tb_clientes set nome = 'Julia Rodrigues Mourão',sexo = 'F' where cpf = '45714672344'; 
+update tb_clientes set sexo = 'F' where cpf = '45714672844'; 
+
 
 
 
