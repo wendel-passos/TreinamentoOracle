@@ -26,15 +26,29 @@ order by to_char (N.data_venda, 'YYYY/MM')
 
 --Resolução
 
-select to_char (N.data_venda, 'YYYY/MM')DATA ,C.cpf,C.nome,sum(i.quantidade) as VOLUME_VENDA,c.volume_de_compra 
-,case
-    when sum(i.quantidade) > C.VOLUME_DE_COMPRA  then 'Venda Inválida'
-    else 'Venda Válida' 
-end VALIDADOR_VENDA
-,round (((1 - (c.volume_de_compra/sum(i.quantidade)))) * 100,2) PERCENTUAL_EXCEDENTE 
-from alura.tabela_de_clientes C 
-inner join alura.notas_Fiscais N on C.cpf = N.cpf
-inner join alura.itens_notas_fiscais I on N.numero = I.numero 
-group by to_char (N.data_venda, 'YYYY/MM'),C.cpf,C.nome,c.volume_de_compra
-having sum(i.quantidade) > C.VOLUME_DE_COMPRA
-order by to_char (N.data_venda, 'YYYY/MM');	
+SELECT
+    to_char(n.data_venda, 'YYYY/MM')                                data,
+    c.cpf,
+    c.nome,
+    SUM(i.quantidade)                                               AS volume_venda,
+    c.volume_de_compra,
+    CASE
+        WHEN SUM(i.quantidade) > c.volume_de_compra THEN
+            'Venda Inválida'
+        ELSE
+            'Venda Válida'
+    END                                                             validador_venda,
+    round(((1 -(c.volume_de_compra / SUM(i.quantidade)))) * 100, 2) percentual_excedente
+FROM
+         alura.tabela_de_clientes c
+    INNER JOIN alura.notas_fiscais       n ON c.cpf = n.cpf
+    INNER JOIN alura.itens_notas_fiscais i ON n.numero = i.numero
+GROUP BY
+    to_char(n.data_venda, 'YYYY/MM'),
+    c.cpf,
+    c.nome,
+    c.volume_de_compra
+HAVING
+    SUM(i.quantidade) > c.volume_de_compra
+ORDER BY
+    to_char(n.data_venda, 'YYYY/MM');
