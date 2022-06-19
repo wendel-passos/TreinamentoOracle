@@ -1,6 +1,6 @@
 --Loop de iserção de clientes aleatórios
 DECLARE
-    v_cont        NUMBER(3) := 7;
+    v_cont        NUMBER(3) := 1;
     v_faturamento NUMBER(38) := 6000;
 BEGIN
     LOOP
